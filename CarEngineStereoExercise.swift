@@ -8,6 +8,19 @@ let ourCar = Car(stereo: ourStereo, engine: ourEngine)
 // Testing Functionality
 ourCar.unlockDoors()
 ourCar.start()
+ourCar.buckleUp()
+ourCar.unbuckle()
+ourCar.changeGearToDrive()
+ourCar.changeGearToNeutral()
+ourCar.changeGearToReverse()
+ourCar.changeGearToPark()
+ourCar.turnOnLeftTurnSignal()
+ourCar.turnOnRightTurnSignal()
+ourCar.turnOnFogSafetyFeature()
+ourCar.useHighHeadlights()
+ourCar.useFastWipers()
+ourCar.turnOffHeadlights()
+ourCar.turnOffWipers()
 ourCar.playNextSong()
 ourCar.playNextSong()
 ourCar.playPreviousSong()
@@ -107,21 +120,18 @@ class DongyiEngine: Engine {
 }
 
 class Car: Drivable {
-    // TODO
-    // innovative safety feature?
-    // implement turn signals
-    // implement wipers
-    // implement lights (headlights, taillights, etc.)
-    // implement movement
-    // add other functions
-
     let stereo: Stereo
     let engine: Engine
     private var areDoorsLocked: Bool = false
-    private var windowLevel: Int = 100
-    private var maxWindowLevel: Int = 100
-    private var minWindowLevel: Int = 0
-    
+    private var shift: String = "park"
+    private var isBuckled: Bool = false
+    private var isLeftBlinkerOn: Bool = false
+    private var isRightBlinkerOn: Bool = false
+    private var wiperSpeed: String = "off"
+    private var headlightBrightness: String = "off"
+    private var isFoggy: Bool = true
+    private var isFrontWindowHeatingOn: Bool = false
+
     init(stereo: Stereo, engine: Engine) {
         self.stereo = stereo
         self.engine = engine
@@ -136,20 +146,7 @@ class Car: Drivable {
         areDoorsLocked = true
         print("Doors are locked")
     }
-
-    // TODO: add function to control which windows are moved
-    func rollWindowUp() {
-        if (windowLevel < maxWindowLevel) {
-            windowLevel = windowLevel + 1
-        }
-    }
-
-    func rollWindowDown() {
-        if (windowLevel > maxWindowLevel) {
-            windowLevel = windowLevel - 1
-        }
-    }
-
+    
     func start() {
         engine.start()
         stereo.turnOn()
@@ -158,6 +155,94 @@ class Car: Drivable {
     func stop() {
         stereo.turnOff()
         engine.stop()
+    }
+
+    func buckleUp() {
+        isBuckled = true
+        print("Buckled Up")
+    }
+
+    func unbuckle() {
+        isBuckled = false
+        print("Unbuckled")
+    }
+
+    func changeGearToPark() {
+        shift = "park"
+        print("Shift Position: \(shift)")
+    }
+
+    func changeGearToReverse() {
+        shift = "reverse"
+        print("Shift Position: \(shift)")
+    }
+
+    func changeGearToNeutral() {
+        shift = "neutral"
+        print("Shift Position: \(shift)")
+    }
+
+    func changeGearToDrive() {
+        shift = "drive"
+        print("Shift Position: \(shift)")
+    }
+
+    func turnOnLeftTurnSignal() {
+        isRightBlinkerOn = false
+        isLeftBlinkerOn = true
+        print("Left Blinker is on")
+    }
+
+    func turnOnRightTurnSignal() {
+        isLeftBlinkerOn = false
+        isRightBlinkerOn = true
+        print("Right Blinker is on")
+    }
+
+    func turnOffWipers() {
+        wiperSpeed = "off"
+        print("Wiper Speed: \(wiperSpeed)")
+    }
+
+    func useSlowWipers() {
+        wiperSpeed = "slow"
+        print("Wiper Speed: \(wiperSpeed)")
+    }
+
+    func useMediumWipers() {
+        wiperSpeed = "medium"
+        print("Wiper Speed: \(wiperSpeed)")
+    }
+
+    func useFastWipers() {
+        wiperSpeed = "fast"
+        print("Wiper Speed: \(wiperSpeed)")
+    }
+
+    func turnOffHeadlights() {
+        headlightBrightness = "off"
+        print("Headlight Brightness: \(headlightBrightness)")
+    }
+
+    func useLowHeadlights() {
+        headlightBrightness = "low"
+        print("Headlight Brightness: \(headlightBrightness)")
+    }
+
+    func useHighHeadlights() {
+        headlightBrightness = "high"
+        print("Headlight Brightness: \(headlightBrightness)")
+    }
+
+    func turnOnFogSafetyFeature() {
+        if isFoggy {
+            isFrontWindowHeatingOn = true
+            useHighHeadlights()
+        }
+        else {
+            isFrontWindowHeatingOn = false
+        }
+        print("Is there window heating: \(isFrontWindowHeatingOn)")
     }
 
     func playNextSong() {
