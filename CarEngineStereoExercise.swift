@@ -156,8 +156,8 @@ class Car: Drivable {
     }
     
     func stop() {
-        engine.stop()
         stereo.turnOff()
+        engine.stop()
     }
 
     func playNextSong() {
